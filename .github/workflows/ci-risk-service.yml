@@ -1,0 +1,14 @@
+name: CI - risk-service
+on:
+  push:
+    paths:
+      - 'services/risk-service/**'
+      - 'common-dto/**'
+  pull_request:
+    paths:
+      - 'services/risk-service/**'
+jobs:
+  build-test:
+    uses: ./.github/workflows/reusable-build-test.yml
+    with:
+      service-path: services/risk-service

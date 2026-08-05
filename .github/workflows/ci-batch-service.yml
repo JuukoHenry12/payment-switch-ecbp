@@ -1,0 +1,14 @@
+name: CI - batch-service
+on:
+  push:
+    paths:
+      - 'services/batch-service/**'
+      - 'common-dto/**'
+  pull_request:
+    paths:
+      - 'services/batch-service/**'
+jobs:
+  build-test:
+    uses: ./.github/workflows/reusable-build-test.yml
+    with:
+      service-path: services/batch-service

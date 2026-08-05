@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: batch-service
+server:
+  port: 8080

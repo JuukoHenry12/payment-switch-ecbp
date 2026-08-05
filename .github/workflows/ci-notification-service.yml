@@ -1,0 +1,14 @@
+name: CI - notification-service
+on:
+  push:
+    paths:
+      - 'services/notification-service/**'
+      - 'common-dto/**'
+  pull_request:
+    paths:
+      - 'services/notification-service/**'
+jobs:
+  build-test:
+    uses: ./.github/workflows/reusable-build-test.yml
+    with:
+      service-path: services/notification-service

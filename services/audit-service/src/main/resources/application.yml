@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: audit-service
+server:
+  port: 8080

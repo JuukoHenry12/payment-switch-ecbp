@@ -1,0 +1,14 @@
+name: CI - account-service
+on:
+  push:
+    paths:
+      - 'services/account-service/**'
+      - 'common-dto/**'
+  pull_request:
+    paths:
+      - 'services/account-service/**'
+jobs:
+  build-test:
+    uses: ./.github/workflows/reusable-build-test.yml
+    with:
+      service-path: services/account-service

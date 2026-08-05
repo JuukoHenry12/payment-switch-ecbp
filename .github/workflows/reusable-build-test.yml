@@ -1,0 +1,19 @@
+name: Reusable Build & Test
+on:
+  workflow_call:
+    inputs:
+      service-path:
+        required: true
+        type: string
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+      - name: Build and test
+        working-directory: ${{ inputs.service-path }}
+        run: mvn -B clean verify

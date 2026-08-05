@@ -1,0 +1,14 @@
+name: CI - legacy-gateway-service
+on:
+  push:
+    paths:
+      - 'services/legacy-gateway-service/**'
+      - 'common-dto/**'
+  pull_request:
+    paths:
+      - 'services/legacy-gateway-service/**'
+jobs:
+  build-test:
+    uses: ./.github/workflows/reusable-build-test.yml
+    with:
+      service-path: services/legacy-gateway-service

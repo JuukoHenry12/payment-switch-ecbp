@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:db2://localhost:50000/ECBPDB
+    username: db2inst1
+    password: ${DB2_PASSWORD:changeme}

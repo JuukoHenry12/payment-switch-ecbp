@@ -1,0 +1,14 @@
+name: CI - api-gateway
+on:
+  push:
+    paths:
+      - 'services/api-gateway/**'
+      - 'common-dto/**'
+  pull_request:
+    paths:
+      - 'services/api-gateway/**'
+jobs:
+  build-test:
+    uses: ./.github/workflows/reusable-build-test.yml
+    with:
+      service-path: services/api-gateway

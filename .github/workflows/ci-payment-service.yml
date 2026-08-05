@@ -1,0 +1,14 @@
+name: CI - payment-service
+on:
+  push:
+    paths:
+      - 'services/payment-service/**'
+      - 'common-dto/**'
+  pull_request:
+    paths:
+      - 'services/payment-service/**'
+jobs:
+  build-test:
+    uses: ./.github/workflows/reusable-build-test.yml
+    with:
+      service-path: services/payment-service

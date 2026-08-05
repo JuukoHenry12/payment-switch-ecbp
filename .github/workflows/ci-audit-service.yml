@@ -1,0 +1,14 @@
+name: CI - audit-service
+on:
+  push:
+    paths:
+      - 'services/audit-service/**'
+      - 'common-dto/**'
+  pull_request:
+    paths:
+      - 'services/audit-service/**'
+jobs:
+  build-test:
+    uses: ./.github/workflows/reusable-build-test.yml
+    with:
+      service-path: services/audit-service

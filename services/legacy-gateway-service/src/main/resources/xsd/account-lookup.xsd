@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Fill in during Phase 6: getAccountDetails request/response schema -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://ecbp.balasubramani.com/legacy-gateway"
+           xmlns:tns="http://ecbp.balasubramani.com/legacy-gateway"
+           elementFormDefault="qualified">
+</xs:schema>

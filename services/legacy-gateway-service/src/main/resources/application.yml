@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: legacy-gateway-service
+server:
+  port: 8080

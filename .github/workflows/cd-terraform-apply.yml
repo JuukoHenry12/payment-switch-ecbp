@@ -1,0 +1,15 @@
+name: CD - Terraform Apply
+on:
+  workflow_dispatch:
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - name: Terraform Init & Apply
+        working-directory: infra/terraform/environments/dev
+        run: |
+          terraform init
+          terraform plan
+          # terraform apply -auto-approve
