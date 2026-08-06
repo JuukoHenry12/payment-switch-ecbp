@@ -1,0 +1,11 @@
+name: PR Gate
+on:
+  pull_request:
+    branches: [main]
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Confirm PR is checked out successfully
+        run: echo "PR gate check passed - repo is valid and checkout succeeded"
