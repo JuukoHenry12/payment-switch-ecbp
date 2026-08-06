@@ -1,6 +1,7 @@
 name: CI - risk-service
 on:
   push:
+    branches: [main]   
     paths:
       - 'services/risk-service/**'
       - 'common-dto/**'

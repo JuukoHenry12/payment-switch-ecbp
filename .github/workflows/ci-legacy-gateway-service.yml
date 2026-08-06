@@ -1,6 +1,7 @@
 name: CI - legacy-gateway-service
 on:
   push:
+    branches: [main]   
     paths:
       - 'services/legacy-gateway-service/**'
       - 'common-dto/**'

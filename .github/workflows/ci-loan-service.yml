@@ -1,6 +1,7 @@
 name: CI - loan-service
 on:
   push:
+    branches: [main]   
     paths:
       - 'services/loan-service/**'
       - 'common-dto/**'
