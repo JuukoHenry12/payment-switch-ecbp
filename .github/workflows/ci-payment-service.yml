@@ -1,6 +1,7 @@
 name: CI - payment-service
 on:
   push:
+    branches: [main]   
     paths:
       - 'services/payment-service/**'
       - 'common-dto/**'

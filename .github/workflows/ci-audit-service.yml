@@ -1,6 +1,7 @@
 name: CI - audit-service
 on:
   push:
+    branches: [main] 
     paths:
       - 'services/audit-service/**'
       - 'common-dto/**'

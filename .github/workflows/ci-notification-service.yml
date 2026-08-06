@@ -1,6 +1,7 @@
 name: CI - notification-service
 on:
   push:
+    branches: [main]  
     paths:
       - 'services/notification-service/**'
       - 'common-dto/**'

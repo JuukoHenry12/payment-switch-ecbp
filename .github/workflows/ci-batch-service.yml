@@ -1,6 +1,7 @@
 name: CI - batch-service
 on:
   push:
+    branches: [main] 
     paths:
       - 'services/batch-service/**'
       - 'common-dto/**'

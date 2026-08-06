@@ -1,6 +1,7 @@
 name: CI - card-service
 on:
   push:
+    branches: [main]   
     paths:
       - 'services/card-service/**'
       - 'common-dto/**'
