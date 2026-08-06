@@ -1,6 +1,7 @@
 name: CI - api-gateway
 on:
   push:
+    branches: [main]
     paths:
       - 'services/api-gateway/**'
       - 'common-dto/**'
