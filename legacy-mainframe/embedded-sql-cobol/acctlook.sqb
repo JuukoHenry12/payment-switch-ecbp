@@ -1,0 +1,29 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. ACCTLOOK.
+
+       ENVIRONMENT DIVISION.
+
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+           EXEC SQL INCLUDE SQLCA END-EXEC.
+
+           EXEC SQL BEGIN DECLARE SECTION END-EXEC.
+       01  WS-ACCT-ID          PIC X(10).
+       01  WS-TIMESTAMP        PIC X(26).
+       01  WS-BALANCE          PIC S9(9)V99 COMP-3.
+           EXEC SQL END DECLARE SECTION END-EXEC.
+
+       PROCEDURE DIVISION.
+       MAIN-PARA.
+           MOVE "ACC0001234" TO WS-ACCT-ID
+
+           EXEC SQL
+               SELECT CHAR(CURRENT TIMESTAMP)
+                 INTO :WS-TIMESTAMP
+                 FROM SYSIBM.SYSDUMMY1
+           END-EXEC
+
+           DISPLAY "SQLCODE: " SQLCODE
+           DISPLAY "Result : " WS-TIMESTAMP
+
+           STOP RUN.

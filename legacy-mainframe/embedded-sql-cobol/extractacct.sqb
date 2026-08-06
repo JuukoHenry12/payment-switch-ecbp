@@ -1,0 +1,83 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. EXTRACTACCT.
+
+       ENVIRONMENT DIVISION.
+       INPUT-OUTPUT SECTION.
+       FILE-CONTROL.
+           SELECT ACCT-OUT-FILE ASSIGN TO "acctextract.idx"
+               ORGANIZATION IS INDEXED
+               ACCESS MODE IS SEQUENTIAL
+               RECORD KEY IS FD-ACCT-ID.
+
+       DATA DIVISION.
+       FILE SECTION.
+       FD  ACCT-OUT-FILE.
+       01  FD-ACCT-RECORD.
+           05  FD-ACCT-ID          PIC X(10).
+           05  FD-ACCT-NAME        PIC X(20).
+           05  FD-ACCT-BALANCE     PIC 9(9)V99.
+
+       WORKING-STORAGE SECTION.
+           EXEC SQL INCLUDE SQLCA END-EXEC.
+
+           EXEC SQL BEGIN DECLARE SECTION END-EXEC.
+       01  WS-ACCT-ID          PIC X(10).
+       01  WS-ACCT-NAME        PIC X(20).
+       01  WS-BALANCE          PIC S9(9)V99 COMP-3.
+           EXEC SQL END DECLARE SECTION END-EXEC.
+
+       01  WS-EOF-FLAG         PIC X VALUE 'N'.
+           88  END-OF-CURSOR   VALUE 'Y'.
+       01  WS-RECORD-COUNT     PIC 9(4) VALUE 0.
+
+       PROCEDURE DIVISION.
+       MAIN-PARA.
+           DISPLAY "=== Extracting accounts from DB2 into indexed file ==="
+
+           EXEC SQL
+               DECLARE ACCT-CURSOR CURSOR FOR
+                   SELECT ACCOUNT_ID, HOLDER_NAME, BALANCE
+                     FROM ACCOUNT
+                    ORDER BY ACCOUNT_ID
+           END-EXEC
+
+           OPEN OUTPUT ACCT-OUT-FILE
+
+           EXEC SQL OPEN ACCT-CURSOR END-EXEC
+           DISPLAY "Cursor OPEN, SQLCODE: " SQLCODE
+
+           PERFORM UNTIL END-OF-CURSOR
+               EXEC SQL
+                   FETCH ACCT-CURSOR
+                     INTO :WS-ACCT-ID, :WS-ACCT-NAME, :WS-BALANCE
+               END-EXEC
+
+               IF SQLCODE = 100
+                   SET END-OF-CURSOR TO TRUE
+               ELSE
+                   IF SQLCODE NOT = 0
+                       DISPLAY "FETCH error, SQLCODE: " SQLCODE
+                       SET END-OF-CURSOR TO TRUE
+                   ELSE
+                       MOVE WS-ACCT-ID   TO FD-ACCT-ID
+                       MOVE WS-ACCT-NAME TO FD-ACCT-NAME
+                       MOVE WS-BALANCE   TO FD-ACCT-BALANCE
+
+                       WRITE FD-ACCT-RECORD
+                           INVALID KEY
+                               DISPLAY "Write error for " WS-ACCT-ID
+                       END-WRITE
+
+                       ADD 1 TO WS-RECORD-COUNT
+                       DISPLAY "Extracted: " WS-ACCT-ID " " WS-ACCT-NAME
+                   END-IF
+               END-IF
+           END-PERFORM
+
+           EXEC SQL CLOSE ACCT-CURSOR END-EXEC
+           CLOSE ACCT-OUT-FILE
+
+           DISPLAY "=== Extraction complete: " WS-RECORD-COUNT
+                   " records written ==="
+
+           STOP RUN.
