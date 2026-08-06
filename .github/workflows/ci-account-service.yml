@@ -1,6 +1,7 @@
 name: CI - account-service
 on:
   push:
+    branches: [main]
     paths:
       - 'services/account-service/**'
       - 'common-dto/**'
